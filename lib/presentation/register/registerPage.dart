@@ -1,0 +1,158 @@
+import 'package:conversations/presentation/otp/otp.dart';
+import 'package:conversations/resources/app_routes.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:intl_phone_field/country_picker_dialog.dart';
+
+import '../../resources/app_assets.dart';
+import '../../resources/app_color.dart';
+import '../../resources/app_strings.dart';
+import '../../resources/app_styles.dart';
+import '../../resources/app_value_resource.dart';
+import 'package:intl_phone_field/intl_phone_field.dart';
+
+
+class RegisterScreen extends StatefulWidget {
+  const RegisterScreen({Key? key}) : super(key: key);
+
+  @override
+  State<RegisterScreen> createState() => _RegisterScreenState();
+}
+
+class _RegisterScreenState extends State<RegisterScreen> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      resizeToAvoidBottomInset: false,
+      backgroundColor: AppColor.grey,
+      body: SafeArea(
+        child: Padding(padding: EdgeInsets.symmetric(vertical: 24, horizontal: 32),
+            child: Column(
+              children: [
+                Align(alignment: Alignment.topLeft,
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                    child: Icon(Icons.arrow_back, color: Colors.black54, size: AppSize.s30,),
+                  ),
+                ),
+                Container(
+                  height: AppSize.s200,
+                    width: AppSize.s200,
+                    decoration: BoxDecoration(
+                      color: Colors.deepPurple.shade50,
+                      shape: BoxShape.circle
+                    ),
+                    child: Stack(
+                        alignment: Alignment.center,
+                        children: [
+                          Center(child: Image(image: AssetImage(AppAssets.splashLogo)),
+                          ),
+                          Positioned(
+                              bottom:20,
+                              child:
+                              Row(
+                                textBaseline: TextBaseline.alphabetic,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment:CrossAxisAlignment.baseline,
+                                children: [
+                                  Text(AppStrings.appTitle, style: getBoldTextStyle(fontSize: AppSize.s25, color: AppColor.balck),),
+                                  Text(AppStrings.dot, style: getBoldTextStyle(fontSize: AppSize.s120, color: AppColor.primaryColorLight),)
+
+                                ],)
+                          )
+
+                        ])),
+                SizedBox(height: AppSize.s18,),
+                Text(AppStrings.registration, style: getBoldTextStyle(fontSize: AppSize.s20, color: AppColor.balck),),
+                SizedBox(height: AppSize.s10,),
+                Text(AppStrings.addYourPhone, textAlign: TextAlign.center, style: getBoldTextStyle(fontSize: AppSize.s14, color: Colors.black38,),),
+                SizedBox(height: AppSize.s38,),
+
+                Container(
+                   padding: EdgeInsets.all(AppPadding.p28),
+                  decoration: BoxDecoration(
+                    color: AppColor.white,
+                    borderRadius: BorderRadius.circular(AppSize.s20),
+                  ),
+                  child: Column(
+                    children: [
+                      IntlPhoneField(
+                        pickerDialogStyle: PickerDialogStyle(backgroundColor: AppColor.grey),
+                        keyboardType: TextInputType.phone,
+                        cursorColor: AppColor.primaryColor,
+                        dropdownIcon: const Icon(Icons.arrow_drop_down, color: AppColor.primaryColor,),
+                        style: TextStyle(color: AppColor.primaryColor),
+                        decoration: InputDecoration(
+                          labelStyle: getRegularTextStyle(fontSize: AppSize.s18, color: AppColor.primaryColor),
+                          suffixIcon: Icon(Icons.check_circle, color: Colors.green,size: AppSize.s30,),
+                            enabled: true,
+                           // label: Text("phone Number"),
+                          hintText: "Phone Number",
+                            border: OutlineInputBorder(
+                              borderRadius:BorderRadius.circular(30) ,
+                              borderSide: BorderSide(),
+                            ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius:BorderRadius.circular(30) ,
+                            borderSide: BorderSide(color: AppColor.primaryColor)),
+                        ),
+                        initialCountryCode: "India",
+                        onChanged: (phone) {
+                          //when phone number country code is changed
+                          print(phone.completeNumber); //get complete number
+                          print(phone.countryCode); // get country code only
+                          print(phone.number); // only phone number
+                        },
+                      ),
+                      SizedBox(height: 22,),
+                      TextField(
+                        keyboardType: TextInputType.emailAddress,
+                        autocorrect: true,
+                        style: getRegularTextStyle(fontSize: AppSize.s18, color: AppColor.primaryColor),
+                        decoration: InputDecoration(
+                          prefixIcon: Icon(Icons.email, color: AppColor.primaryColorLight,),
+                          labelStyle: getRegularTextStyle(fontSize: AppSize.s18, color: AppColor.primaryColor),
+                          suffixIcon: Icon(Icons.check_circle, color: Colors.green,size: AppSize.s30,),
+                          enabled: true,
+                          // label: Text("phone Number"),
+                          hintText: "Email Address",
+                          border: OutlineInputBorder(
+                            borderRadius:BorderRadius.circular(30) ,
+                            borderSide: BorderSide(),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                              borderRadius:BorderRadius.circular(30) ,
+                              borderSide: BorderSide(color: AppColor.primaryColor)),
+                        ),
+
+                      ),
+                      SizedBox(height: 22,),
+
+                      SizedBox(
+                        height: AppSize.s60,
+                        width: double.infinity,
+                        child: ElevatedButton(
+                            onPressed: (){
+                              Get.toNamed(Routes.otpScreen);
+                        },
+                            style: ButtonStyle(
+                                backgroundColor: MaterialStatePropertyAll(AppColor.primaryColorLight),
+                                foregroundColor: MaterialStatePropertyAll(AppColor.white),
+                                shape: MaterialStatePropertyAll(RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppSize.s25)))
+                            ),
+                            child: Padding(padding: EdgeInsets.all(AppPadding.p14), child: Text(AppStrings.send),)
+                        )
+                        ,),
+                    ],
+                  ),
+                ),
+              ],
+            )
+        ),
+      ),
+    );
+  }
+}
