@@ -2,8 +2,7 @@ import 'package:conversations/resources/app_color.dart';
 import 'package:conversations/resources/app_value_resource.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
-import '../presentation/profile/editProfilePage.dart';
+import '../utils/user_preferences.dart';
 
 class ButtonWidget extends StatelessWidget {
   final String text;
@@ -20,9 +19,7 @@ class ButtonWidget extends StatelessWidget {
           overlayColor:  MaterialStatePropertyAll(AppColor.white),
           padding: MaterialStatePropertyAll(EdgeInsets.symmetric(horizontal: AppSize.s30, vertical: AppSize.s12)),
         ),
-          onPressed: (){
-              onClicked;
-      },
+          onPressed: ()=> onClicked(),
           child: Text(text,)),
     );
   }

@@ -7,7 +7,7 @@ import 'package:conversations/utils/user_preferences.dart';
 import 'package:conversations/widgets/button_widget.dart';
 import 'package:conversations/widgets/numbers_widget.dart';
 import 'package:conversations/widgets/profile_widgets.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter/material.dart';
 
 import '../../widgets/build_appbar.dart';
@@ -22,27 +22,27 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
-    final user = UserPreference.myUser;
+    final user = UserPreference.getUser();
     return Scaffold(
       appBar: buildAppBar(context),
       body: ListView(
         physics: BouncingScrollPhysics(),
         children: [
           ProfileWidgets(
-          onClicked: (){
-            Navigator.of(context).push(MaterialPageRoute(builder: (context)=>EditProfilePage()));
+          onClicked: ()async{
             print("Hello Open");
             print("Hello Open");
             print("Hello Open");
             print("Hello Open");
-
-    },
+            await Navigator.of(context).push(MaterialPageRoute(builder: (context)=>EditProfilePage()));
+            setState(() {});},
             isEdit: false,
             imagePath: user.imagePath,
 
           ),
           SizedBox(height: AppSize.s10,),
           buildName(user),
+          buildSocialMedia(),
           buildStatus(user),
           buildUpgradeButton(),
           SizedBox(height: AppSize.s10,),
@@ -68,7 +68,7 @@ class _ProfilePageState extends State<ProfilePage> {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(user.status, style: getBoldTextStyle(fontSize: AppSize.s20, color: Colors.grey.shade700),),
+          Text("Unverified", style: getBoldTextStyle(fontSize: AppSize.s20, color: Colors.grey.shade700),),
           Icon(Icons.check_circle, color: Colors.yellow.shade700,)
         ],
       ),
@@ -90,6 +90,14 @@ class _ProfilePageState extends State<ProfilePage> {
         text: "Upgrade to Pro",
         onClicked: (){
         });
+  }
+  Widget buildSocialMedia(){
+    return  Row(
+      children: [
+        IconButton(onPressed: (){}, icon: FaIcon(FontAwesomeIcons.twitter, color: Colors.blue,)),
+        IconButton(onPressed: (){}, icon: FaIcon(FontAwesomeIcons.instagram, color: Colors.purpleAccent,))
+      ],
+    );
   }
   Widget buildAbout(UserProfile user){
     return Container(

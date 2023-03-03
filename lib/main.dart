@@ -6,12 +6,14 @@ import 'package:conversations/presentation/splash/splash_screen.dart';
 import 'package:conversations/presentation/unknownPage.dart';
 import 'package:conversations/resources/app_routes.dart';
 import 'package:conversations/resources/app_strings.dart';
-import 'package:conversations/resources/app_theme_data.dart';
 import 'package:conversations/utils/themes.dart';
+import 'package:conversations/utils/user_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 
-void main() {
+void main()async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await UserPreference.init();
   runApp(const MyApp());
 }
 

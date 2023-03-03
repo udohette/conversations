@@ -32,19 +32,23 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(widget.label, style: getBoldTextStyle(fontSize: AppSize.s16, color: AppColor.balck),),
-        SizedBox(height: AppSize.s8,),
-        TextField(
-          decoration: InputDecoration(
-            border: OutlineInputBorder(borderRadius: BorderRadius.circular(AppSize.s12))
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: AppSize.s12),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(widget.label, style: getBoldTextStyle(fontSize: AppSize.s16, color: AppColor.balck),),
+          SizedBox(height: AppSize.s8,),
+          TextField(
+            decoration: InputDecoration(
+              border: OutlineInputBorder(borderRadius: BorderRadius.circular(AppSize.s12))
+            ),
+            maxLines: widget.maxLines,
+            controller: controller,
+            onChanged: widget.onChanged,
           ),
-          maxLines: widget.maxLines,
-          controller: controller,
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
