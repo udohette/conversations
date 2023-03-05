@@ -40,7 +40,6 @@ class MyApp extends StatelessWidget {
         GetPage(transition: Transition.rightToLeft, name: Routes.otpScreen, page: ()=>OTPScreen()),
       ],
       unknownRoute: GetPage(name: Routes.unknownPage, page: ()=>const UnknownPage()),
-
       );
   }
 }

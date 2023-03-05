@@ -50,7 +50,7 @@ class _ProfilePageState extends State<ProfilePage> {
           SizedBox(height: AppSize.s10,),
           buildFavoriteClubs(),
           SizedBox(height: AppSize.s20,),
-          buildFavoriteRooms(),
+          //buildFavoriteRooms(),
           SizedBox(height: AppSize.s16,),
           buildAbout(user)
         ],
@@ -121,7 +121,7 @@ class _ProfilePageState extends State<ProfilePage> {
         ),
       ),
     );
-    
+
   }
   Widget buildFavoriteClubs(){
     return Container(
@@ -129,7 +129,7 @@ class _ProfilePageState extends State<ProfilePage> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text("favorite clubs", style: getMediumTextStyle(fontSize: AppSize.s18, color: AppColor.primaryColorLight),),
+          Text("clubs", style: getMediumTextStyle(fontSize: AppSize.s18, color: AppColor.primaryColorLight),),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -147,30 +147,31 @@ class _ProfilePageState extends State<ProfilePage> {
     );
 
   }
-  Widget buildFavoriteRooms(){
-    return Container(
-      margin: EdgeInsets.symmetric(horizontal: AppPadding.p14),
-      child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text("favorite rooms", style: getMediumTextStyle(fontSize: AppSize.s18, color: AppColor.primaryColorLight),),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                TextButton(
-                    style: ButtonStyle(backgroundColor: MaterialStatePropertyAll(AppColor.grey)),
-                    onPressed: (){},  child: Text("CALL"),),
-                SizedBox(width: AppSize.s8,),
-                TextButton(
-                    style: ButtonStyle(backgroundColor: MaterialStatePropertyAll(AppColor.grey)),
-                    onPressed: (){}, child: Text("CAR"),),
-                SizedBox(width: AppSize.s8,),
-                TextButton(
-                    style: ButtonStyle(backgroundColor: MaterialStatePropertyAll(AppColor.grey)),
-                    onPressed: (){},child: Text("TELEGRAM"),),
-              ],),
-          ]),
-    );
+  // Widget buildFavoriteRooms(){
+  //   return Container(
+  //     margin: EdgeInsets.symmetric(horizontal: AppPadding.p14),
+  //     child: Column(
+  //         crossAxisAlignment: CrossAxisAlignment.start,
+  //         children: [
+  //           Text("rooms", style: getMediumTextStyle(fontSize: AppSize.s18, color: AppColor.primaryColorLight),),
+  //           Row(
+  //             mainAxisAlignment: MainAxisAlignment.start,
+  //             children: [
+  //               TextButton(
+  //                   style: ButtonStyle(backgroundColor: MaterialStatePropertyAll(AppColor.grey)),
+  //                   onPressed: (){},  child: Text("CALL"),),
+  //               SizedBox(width: AppSize.s8,),
+  //               TextButton(
+  //                   style: ButtonStyle(backgroundColor: MaterialStatePropertyAll(AppColor.grey)),
+  //                   onPressed: (){}, child: Text("CAR"),),
+  //               SizedBox(width: AppSize.s8,),
+  //               TextButton(
+  //                   style: ButtonStyle(backgroundColor: MaterialStatePropertyAll(AppColor.grey)),
+  //                   onPressed: (){},child: Text("TELEGRAM"),),
+  //             ],),
+  //         ]),
+  //   );
+  //
+  // }
 
-  }
 }
