@@ -5,7 +5,6 @@ import 'package:conversations/resources/app_styles.dart';
 import 'package:conversations/resources/app_value_resource.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import '../../resources/app_assets.dart';
 import '../../resources/app_color.dart';
 import '../../resources/app_strings.dart';

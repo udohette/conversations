@@ -1,4 +1,5 @@
 import 'package:conversations/presentation/otp/otp.dart';
+import 'package:conversations/presentation/register/registration_controller.dart';
 import 'package:conversations/resources/app_routes.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -21,6 +22,8 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
+  final RegistrationController controller = Get.put(RegistrationController());
+  late String completeNumber;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,8 +51,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     child: Stack(
                         alignment: Alignment.center,
                         children: [
-                          Center(child: Image(image: AssetImage(AppAssets.splashLogo)),
-                          ),
+                          const Center(child: Image(image: AssetImage(AppAssets.splashLogo)),),
                           Positioned(
                               bottom:20,
                               child:
@@ -104,11 +106,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           //when phone number country code is changed
                           print(phone.completeNumber); //get complete number
                           print(phone.countryCode); // get country code only
-                          print(phone.number); // only phone number
+                          print(phone.number);
+                          completeNumber = phone.completeNumber;
+                          //controller.phoneNumberController.value = phone.completeNumber.toString() as TextEditingValue;// only phone number
                         },
                       ),
                       SizedBox(height: 22,),
                       TextField(
+                        controller: controller.emailController,
                         keyboardType: TextInputType.emailAddress,
                         autocorrect: true,
                         style: getRegularTextStyle(fontSize: AppSize.s18, color: AppColor.primaryColor),
@@ -136,7 +141,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         width: double.infinity,
                         child: ElevatedButton(
                             onPressed: (){
-                              Get.toNamed(Routes.otpScreen);
+                              controller.passwordController.text = completeNumber;
+                              controller.registerEmail();
+                              //Get.toNamed(Routes.otpScreen);
                         },
                             style: ButtonStyle(
                                 backgroundColor: MaterialStatePropertyAll(AppColor.primaryColorLight),

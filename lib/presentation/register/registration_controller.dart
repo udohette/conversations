@@ -4,6 +4,7 @@ import 'package:conversations/resources/app_routes.dart';
 import 'package:conversations/resources/app_value_resource.dart';
 import 'package:conversations/utils/api_endpoints.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
@@ -15,6 +16,7 @@ class RegistrationController extends GetxController{
   TextEditingController passwordController = TextEditingController();
   TextEditingController tokenController = TextEditingController();
   TextEditingController userNameController = TextEditingController();
+  //late RxString completeNumber obs;
   var header  ='application/json';
 
   final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
@@ -25,33 +27,35 @@ class RegistrationController extends GetxController{
       var url = Uri.parse(
           APIEndPoints.baseUrl + APIEndPoints.userEndPoint.registerEmail);
       Map body = {
-        'email': emailController.text.trim(),
-        'mobile_num': phoneNumberController.text,
-        'password': passwordController.text,
-        'token': tokenController.text,
-        'user_name': userNameController.text
+        'email': emailController.value.text.trim(),
+        'mobile_num': passwordController.value.text,
+        'password': "",
+        'token': "",
+        'user_name': "",
       };
+      print(body.toString());
       http.Response response = await http.post(
-          url, body: jsonEncode(body), headers: headers);
+          url, body: jsonEncode(body), headers: {
+        'Content-type': 'application/json',
+        'Accept': 'application/json'
+      },);
 
+      print(response.body.toString());
       if (response.statusCode == 200) {
         final json = jsonDecode(response.body);
-        if (json['data']['acc_status'] == 'inactive') {
-          var v_code = json['data']['properties']['v_code'];
-
-          print(v_code);
-          print(v_code);
-          print(v_code);
-          final SharedPreferences? prefs = await _prefs;
-          await prefs?.setString("v_code", v_code);
+       /* if (json['data']['acc_status'] == 'inactive') {
+          var v_code = json['data']['properties']['v_code'];*/
+          final SharedPreferences prefs = await _prefs;
+          //await prefs?.setString("v_code", v_code);
           emailController.clear();
           passwordController.clear();
           phoneNumberController.clear();
           tokenController.clear();
           userNameController.clear();
-        }else{
+          Get.toNamed(Routes.otpScreen);
+        /*}else{
           throw jsonDecode(response.body)['message'] ?? "Unknown Error Occurred";
-        }
+        }*/
       }else{
         throw jsonDecode(response.body)['message'] ?? "Unknown Error Occurred";
       }
@@ -60,8 +64,8 @@ class RegistrationController extends GetxController{
       Get.back();
       showDialog(context: Get.context!, builder: (context){
         return SimpleDialog(
-          title: Text("Error"),
-          contentPadding: EdgeInsets.all(AppPadding.p20,),
+          title: const Text("Error"),
+          contentPadding: const EdgeInsets.all(AppPadding.p20,),
           children: [Text(e.toString())],
             
         );

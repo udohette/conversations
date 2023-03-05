@@ -9,7 +9,6 @@ import 'package:conversations/widgets/numbers_widget.dart';
 import 'package:conversations/widgets/profile_widgets.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter/material.dart';
-
 import '../../widgets/build_appbar.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -94,8 +93,8 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget buildSocialMedia(){
     return  Row(
       children: [
-        IconButton(onPressed: (){}, icon: FaIcon(FontAwesomeIcons.twitter, color: Colors.blue,)),
-        IconButton(onPressed: (){}, icon: FaIcon(FontAwesomeIcons.instagram, color: Colors.purpleAccent,))
+        IconButton(onPressed: (){}, icon: const FaIcon(FontAwesomeIcons.twitter, color: Colors.blue,)),
+        IconButton(onPressed: (){}, icon: const FaIcon(FontAwesomeIcons.instagram, color: Colors.purpleAccent,))
       ],
     );
   }

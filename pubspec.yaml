@@ -44,14 +44,14 @@ dependencies:
   http: ^0.13.5
 
   #persist local data
-  shared_preferences: ^2.0.15
+  shared_preferences: ^2.0.18
 
-  font_awesome_flutter: ^8.0.0
+  font_awesome_flutter: ^10.4.0
   #Pick Images
-  image_picker: ^0.7.4
+  image_picker: ^0.8.6+4
 
   #store Images
-  path_provider: ^2.0.1
+  path_provider: ^2.0.13
 
 
 dev_dependencies:

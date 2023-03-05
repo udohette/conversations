@@ -36,7 +36,6 @@ class UserProfile{
       about: json['about'],
       isDarkMode: json['isDarkMode']);
 
-
   Map<String, dynamic> toJson()=>{
     'imagePath':imagePath,
     'name':name,
