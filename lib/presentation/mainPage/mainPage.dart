@@ -35,11 +35,10 @@ class _MainPageState extends State<MainPage> {
         },
           backgroundColor: AppColor.white,
           animationCurve: Curves.fastOutSlowIn,
-          animationDuration: Duration(milliseconds: 400),
+          animationDuration: const Duration(milliseconds: 400),
           items: [
-            Icon(Icons.home, color: AppColor.white, size: AppSize.s30),
-            Icon(Icons.person, color: AppColor.white, size: AppSize.s30,),
-
+            Icon(Icons.home, color: activeIndex == 0 ? AppColor.greyDark : AppColor.white, size: AppSize.s30),
+            Icon(Icons.person, color: activeIndex == 1 ? AppColor.greyDark : AppColor.white, size: AppSize.s30,),
           ]),
       body: pages.elementAt(activeIndex),
     );

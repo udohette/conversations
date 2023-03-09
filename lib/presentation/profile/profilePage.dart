@@ -14,6 +14,7 @@ import 'package:conversations/widgets/profile_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../widgets/build_appbar.dart';
 import 'package:get/get.dart';
 import 'package:conversations/utils/globals.dart';
@@ -28,14 +29,13 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   String newName = "";
   bool isAdded = false;
-
+  var user = '';
 
   @override
   Widget build(BuildContext context) {
 
     final profileImg = ImageProfilePreference.getProfileImg();
     final user = UserPreference.getUser();
-
 
     return Scaffold(
       appBar: buildAppBar(context),
@@ -115,20 +115,24 @@ class _ProfilePageState extends State<ProfilePage> {
   }
   Widget buildSocialMedia(){
     final socialAdd = UserPreference.getUser();
+    //var user
+    getInsta();
+    var url = Uri.parse("http://instagram.com/_u/$instagramName");
     return  Column(
       children: [
         Row(
           children: [
             IconButton(onPressed: (){}, icon: const FaIcon(FontAwesomeIcons.twitter, color: Colors.purpleAccent,)),
             TextButton(onPressed: (){}, child: Text("Add Twitter",style: getBoldTextStyle(fontSize: AppSize.s16, color: AppColor.blue),)
-
            )],
         ),
             Row(
               children: [
                 IconButton(onPressed: (){}, icon: const FaIcon(FontAwesomeIcons.instagram, color: Colors.purpleAccent,)),
                 TextButton(onPressed: (){
-                  Get.toNamed(Routes.instagramPage);
+                  isAdded ? WidgetsBinding.instance.addPostFrameCallback((_)async {
+                  await Get.to(_launchInBrowser(url));
+                  }) : Get.toNamed(Routes.instagramPage);
                 }, child: Text(instagramName ?? "Add Instagram" ,style: getBoldTextStyle(fontSize: AppSize.s16, color: AppColor.blue),)),
               ],
             )
@@ -136,6 +140,13 @@ class _ProfilePageState extends State<ProfilePage> {
             // IconButton(onPressed: (){}, icon: const FaIcon(FontAwesomeIcons.instagram, color: Colors.purpleAccent,))
           ],
     );
+  }
+
+  Future<void> _launchInBrowser(Uri url) async {
+    if (!await launchUrl(url, mode: LaunchMode.externalApplication,
+    )) {
+      throw Exception('Could not launch $url');
+    }
   }
   Widget buildAbout(UserProfile user){
     return Container(
@@ -184,6 +195,20 @@ class _ProfilePageState extends State<ProfilePage> {
         ]),
     );
 
+  }
+
+  Future getInsta() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    //Map json = jsonDecode(pref.getString('userData'));
+    setState(() {
+      instagramName = pref.getString('userData').toString();
+      isAdded = true;
+      if(instagramName == 'null') {
+        instagramName = 'Add Instagram';
+        isAdded = false;
+      }
+    });
+    //print('Shared Insta $instagramName');
   }
   // Widget buildFavoriteRooms(){
   //   return Container(

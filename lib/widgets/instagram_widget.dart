@@ -1,17 +1,13 @@
 import 'dart:convert';
-
 import 'package:conversations/constant/instagram_constant.dart';
 import 'package:conversations/utils/globals.dart';
 import 'package:conversations/widgets/build_appbar.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
-
 import '../model/isocia_network_model/instagram_mode.dart';
-
 
 
 class InstagramView extends StatefulWidget {
@@ -53,10 +49,11 @@ class _InstagramViewState extends State<InstagramView> {
               instagramName = instagram.username.toString();
               print('instagramName instagramName $instagramName');
 
-              SharedPreferences preferences = await SharedPreferences.getInstance();
-              preferences.setString("instagramName", instagramName.toString());
+              SharedPreferences pref = await SharedPreferences.getInstance();
+              pref.setString('userData', instagramName);
 
-
+              /*SharedPreferences preferences = await SharedPreferences.getInstance();
+              preferences.setString("instagramUsername", instagramName.toString());*/
 
               final String username = instagram.username.toString();
               var url = Uri.parse("http://instagram.com/_u/$username");

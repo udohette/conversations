@@ -17,6 +17,7 @@ class UserPreference{
       locationId: 0,
       occupation: "Software Developer",
       instagramUsername: "to be added",
+
       isDarkMode: false);
 
   static Future init()async{
