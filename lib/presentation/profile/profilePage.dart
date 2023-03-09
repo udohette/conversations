@@ -1,15 +1,22 @@
+
 import 'package:conversations/model/userProfileData.dart';
 import 'package:conversations/presentation/profile/editProfilePage.dart';
 import 'package:conversations/resources/app_color.dart';
+import 'package:conversations/resources/app_routes.dart';
 import 'package:conversations/resources/app_styles.dart';
 import 'package:conversations/resources/app_value_resource.dart';
+import 'package:conversations/utils/image_profile_user_reference.dart';
 import 'package:conversations/utils/user_preferences.dart';
 import 'package:conversations/widgets/button_widget.dart';
+import 'package:conversations/widgets/instagram_widget.dart';
 import 'package:conversations/widgets/numbers_widget.dart';
 import 'package:conversations/widgets/profile_widgets.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../widgets/build_appbar.dart';
+import 'package:get/get.dart';
+import 'package:conversations/utils/globals.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key}) : super(key: key);
@@ -19,9 +26,17 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+  String newName = "";
+  bool isAdded = false;
+
+
   @override
   Widget build(BuildContext context) {
+
+    final profileImg = ImageProfilePreference.getProfileImg();
     final user = UserPreference.getUser();
+
+
     return Scaffold(
       appBar: buildAppBar(context),
       body: ListView(
@@ -33,10 +48,10 @@ class _ProfilePageState extends State<ProfilePage> {
             print("Hello Open");
             print("Hello Open");
             print("Hello Open");
-            await Navigator.of(context).push(MaterialPageRoute(builder: (context)=>EditProfilePage()));
+            await Navigator.of(context).push(MaterialPageRoute(builder: (context)=>const EditProfilePage()));
             setState(() {});},
             isEdit: false,
-            imagePath: user.imagePath,
+            imagePath: profileImg.imagePath,
 
           ),
           SizedBox(height: AppSize.s10,),
@@ -77,11 +92,19 @@ class _ProfilePageState extends State<ProfilePage> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-      Text(user.name, style: getBoldTextStyle(fontSize: AppSize.s20, color: AppColor.balck),),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+          Text(user.fName?? "Conversation", style: getBoldTextStyle(fontSize: AppSize.s20, color: AppColor.balck),),
+          SizedBox(width: 15,),
+          Text(user.lName?? "Conversation", style: getBoldTextStyle(fontSize: AppSize.s16, color: Colors.grey),),
+        ],),
         SizedBox(height: AppSize.s4,),
-        Text(user.email, style: getBoldTextStyle(fontSize: AppSize.s16, color: Colors.grey),),
+        Text(user.occupation?? "Conversation", style: getBoldTextStyle(fontSize: AppSize.s16, color: Colors.grey),),
         SizedBox(height: AppSize.s4,),
-        Text(user.phone, style: getBoldTextStyle(fontSize: AppSize.s16, color: Colors.grey),)
+        Text(user.gender?? "Conversation", style: getBoldTextStyle(fontSize: AppSize.s16, color: Colors.grey),),
+        SizedBox(height: AppSize.s4,),
+        Text(user.dob?? "Conversation", style: getBoldTextStyle(fontSize: AppSize.s16, color: Colors.grey),),
     ],);
   }
   Widget buildUpgradeButton(){
@@ -91,11 +114,27 @@ class _ProfilePageState extends State<ProfilePage> {
         });
   }
   Widget buildSocialMedia(){
-    return  Row(
+    final socialAdd = UserPreference.getUser();
+    return  Column(
       children: [
-        IconButton(onPressed: (){}, icon: const FaIcon(FontAwesomeIcons.twitter, color: Colors.blue,)),
-        IconButton(onPressed: (){}, icon: const FaIcon(FontAwesomeIcons.instagram, color: Colors.purpleAccent,))
-      ],
+        Row(
+          children: [
+            IconButton(onPressed: (){}, icon: const FaIcon(FontAwesomeIcons.twitter, color: Colors.purpleAccent,)),
+            TextButton(onPressed: (){}, child: Text("Add Twitter",style: getBoldTextStyle(fontSize: AppSize.s16, color: AppColor.blue),)
+
+           )],
+        ),
+            Row(
+              children: [
+                IconButton(onPressed: (){}, icon: const FaIcon(FontAwesomeIcons.instagram, color: Colors.purpleAccent,)),
+                TextButton(onPressed: (){
+                  Get.toNamed(Routes.instagramPage);
+                }, child: Text(instagramName ?? "Add Instagram" ,style: getBoldTextStyle(fontSize: AppSize.s16, color: AppColor.blue),)),
+              ],
+            )
+            // IconButton(onPressed: (){}, icon: const FaIcon(FontAwesomeIcons.twitter, color: Colors.blue,)),
+            // IconButton(onPressed: (){}, icon: const FaIcon(FontAwesomeIcons.instagram, color: Colors.purpleAccent,))
+          ],
     );
   }
   Widget buildAbout(UserProfile user){

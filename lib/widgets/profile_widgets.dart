@@ -57,8 +57,8 @@ class _ProfileWidgetsState extends State<ProfileWidgets> {
             child: widget.isEdit == false? Icon(Icons.edit, color: AppColor.white,size: AppSize.s20,):Icon(Icons.camera_alt, color: AppColor.white,size: AppSize.s20,),
             color: AppColor.blue,
             all: AppSize.s8),
-        color: AppColor.white,
-        all: AppPadding.p3);
+            color: AppColor.white,
+            all: AppPadding.p3);
 
 
   }

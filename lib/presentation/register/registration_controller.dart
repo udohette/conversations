@@ -24,18 +24,16 @@ class RegistrationController extends GetxController{
   Future<void> registerEmail()async{
     try {
       var headers = {'Content-Type': header};
-      var url = Uri.parse(
-          APIEndPoints.baseUrl + APIEndPoints.userEndPoint.registerEmail);
+      var url = Uri.parse(APIEndPoints.baseUrl + APIEndPoints.userEndPoint.registerEmail);
       Map body = {
         'email': emailController.value.text.trim(),
-        'mobile_num': passwordController.value.text,
+        'mobile_num': phoneNumberController.value.text,
         'password': "",
         'token': "",
         'user_name': "",
       };
       print(body.toString());
-      http.Response response = await http.post(
-          url, body: jsonEncode(body), headers: {
+      http.Response response = await http.post(url, body: jsonEncode(body), headers: {
         'Content-type': 'application/json',
         'Accept': 'application/json'
       },);
@@ -67,9 +65,7 @@ class RegistrationController extends GetxController{
           title: const Text("Error"),
           contentPadding: const EdgeInsets.all(AppPadding.p20,),
           children: [Text(e.toString())],
-            
         );
-        
       });
     }
   }

@@ -141,7 +141,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         width: double.infinity,
                         child: ElevatedButton(
                             onPressed: (){
-                              controller.passwordController.text = completeNumber;
+                              controller.phoneNumberController.text = completeNumber;
                               controller.registerEmail();
                               //Get.toNamed(Routes.otpScreen);
                         },

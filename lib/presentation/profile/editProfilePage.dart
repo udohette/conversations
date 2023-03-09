@@ -1,7 +1,9 @@
 import 'dart:io';
 
+import 'package:conversations/model/profile_image.dart';
 import 'package:conversations/model/userProfileData.dart';
 import 'package:conversations/resources/app_value_resource.dart';
+import 'package:conversations/utils/image_profile_user_reference.dart';
 import 'package:conversations/widgets/build_appbar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -24,11 +26,13 @@ class EditProfilePage extends StatefulWidget {
 
 class _EditProfilePageState extends State<EditProfilePage> {
   late UserProfile user;
+  late ProfileImage profileImg;
 
   @override
   void initState() {
     super.initState();
      user = UserPreference.getUser();
+     profileImg = ImageProfilePreference.getProfileImg();
   }
 
 
@@ -40,7 +44,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
         physics: BouncingScrollPhysics(),
         children: [
         ProfileWidgets(
-        imagePath: user.imagePath,
+        imagePath: profileImg.imagePath,
         onClicked: ()async{
           final image = await ImagePicker().getImage(source: ImageSource.gallery);
           if(image == null){
@@ -51,7 +55,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
             final imageFile = File('${directory.path}/$name');
             final newImage = await File(image.path).copy(imageFile.path);
             setState(() {
-              user = user.copy(imagePath: newImage.path);
+              profileImg = profileImg.copy(imagePath: newImage.path);
               print({"Get Image Location and Name: $imageFile"});
               print({"Image Path: $name"});
               print({"Image Location: $newImage"});
@@ -64,29 +68,39 @@ class _EditProfilePageState extends State<EditProfilePage> {
         }, isEdit: true,),
           SizedBox(height: AppSize.s25,),
           TextFieldWidget(
-            label: "Full Name",
-            text: user.name,
-            onChanged: (name)=> user = user.copy(name: name),
-          ),
-
-          SizedBox(height: AppSize.s25,),
-          TextFieldWidget(
-            label: "Email",
-            text: user.email,
-            onChanged: (email) => user = user.copy(email: email),
+            label: "First Name",
+            text: user.fName,
+            onChanged: (name)=> user = user.copyWith(fName: name),
           ),
           SizedBox(height: AppSize.s25,),
           TextFieldWidget(
-            label: "phone Number",
-            text: user.phone,
-            onChanged: (phone)=>user = user.copy(phone: phone),
+            label: "Last Name",
+            text: user.lName,
+            onChanged: (name)=> user = user.copyWith(lName: name),
+          ),
+          SizedBox(height: AppSize.s25,),
+          TextFieldWidget(
+            label: "Occupation",
+            text: user.occupation,
+            onChanged: (occupation)=> user = user.copyWith(occupation: occupation),
+          ),
+          SizedBox(height: AppSize.s25,),
+          TextFieldWidget(
+            label: "DOB",
+            text: user.dob,
+            onChanged: (dob)=> user = user.copyWith(dob: dob),
+          ),
+          TextFieldWidget(
+            label: "Gender",
+            text: user.gender,
+            onChanged: (gender)=> user = user.copyWith(gender: gender),
           ),
           SizedBox(height: AppSize.s25,),
           TextFieldWidget(
             maxLines: 5,
             label: "About Me",
             text: user.about,
-            onChanged: (about)=> user = user.copy(about: about),
+            onChanged: (about)=> user = user.copyWith(about: about),
           ),
           SizedBox(height: AppSize.s25,),
           gradeButton(),
@@ -98,6 +112,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
         text: 'Save',
         onClicked: () {
           UserPreference.setUser(user);
+          ImageProfilePreference.setProfileImg(profileImg);
           Navigator.of(this.context).pop();
         },
     );

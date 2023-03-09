@@ -14,7 +14,7 @@ AppBar buildAppBar(BuildContext context){
     elevation: 0,
     actions: [IconButton(onPressed: (){
       Get.changeTheme(Get.isDarkMode? ThemeData.light(): ThemeData.dark());
-      final newUser = user.copy(isDarkMode: !isDarkMode);
+      final newUser = user.copyWith(isDarkMode: !isDarkMode);
       UserPreference.setUser(newUser);
     }, icon: Get.isDarkMode?  Icon(CupertinoIcons.moon_stars,): Icon(CupertinoIcons.moon_stars, color: Colors.grey,))],
   );

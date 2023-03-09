@@ -16,6 +16,7 @@ class Routes{
   static const String otpScreen = "/otpScreen";
   static const String forgotPasswordRoute = "/forgotPassword";
   static const String mainRoute = "/main";
+  static const String instagramPage = "/instagramPage";
   static const String unknownPage = "/pageNotFound";
   static const String loginOrRegister = "/loginORegister";
 }

@@ -26,7 +26,7 @@ class NumbersWidget extends StatelessWidget {
   Widget buildDivider(){
     return Container(
       height: AppSize.s25,
-        child: VerticalDivider());
+        child: VerticalDivider(thickness: 2.0,));
   }
  Widget buildButton(BuildContext context, String value, String text){
     return MaterialButton(

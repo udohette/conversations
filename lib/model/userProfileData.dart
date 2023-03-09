@@ -1,47 +1,82 @@
+// To parse this JSON data, do
+//
+//     final userProfile = userProfileFromJson(jsonString);
 
-class UserProfile{
-  late final String imagePath;
-  late final String name;
-  late final String email;
-  late final String about;
-  late final String phone;
-  late final bool isDarkMode;
+import 'dart:convert';
 
-  UserProfile({required this.imagePath, required this.name, required this.email,required this.phone,
-    required this.about, required this.isDarkMode,});
+UserProfile userProfileFromJson(String str) => UserProfile.fromJson(json.decode(str));
 
-  UserProfile copy({
-      String? imagePath,
-      String? name,
-      String? email,
-      String? about,
-     String? phone,
-     bool? isDarkMode,
+String userProfileToJson(UserProfile data) => json.encode(data.toJson());
 
-})=>
+class UserProfile {
+
+  int userId;
+  String about;
+  String dob;
+  String fName;
+  String lName;
+  String gender;
+  int locationId;
+  String occupation;
+  String instagramUsername;
+  bool isDarkMode;
+
+
+  UserProfile({required this.userId, required this.about, required this.dob, required this.fName, required this.lName,
+    required this.gender,
+    required this.locationId,
+    required this.occupation,
+    required this.instagramUsername,
+    required this.isDarkMode,
+  });
+  UserProfile copyWith({
+    int? userId,
+    String? about,
+    String? dob,
+    String? fName,
+    String? lName,
+    String? gender,
+    int? locationId,
+    String? occupation,
+    String? instagramUsername,
+    bool? isDarkMode,
+  }) =>
       UserProfile(
-      imagePath: imagePath ?? this.imagePath,
-      name: name ?? this.name,
-      email: email ?? this.email,
-      phone: phone ?? this.phone,
-      about:about ?? this.about,
-      isDarkMode:isDarkMode ?? this.isDarkMode ,
+        userId: userId ?? this.userId,
+        about: about ?? this.about,
+        dob: dob ?? this.dob,
+        fName: fName ?? this.fName,
+        lName: lName ?? this.lName,
+        gender: gender ?? this.gender,
+        locationId: locationId ?? this.locationId,
+        occupation: occupation ?? this.occupation,
+        instagramUsername: instagramUsername ?? this.instagramUsername,
+        isDarkMode: isDarkMode ?? this.isDarkMode,
       );
 
-  static UserProfile fromJson(Map<String, dynamic> json) => UserProfile(
-      imagePath: json['imagePath'],
-      name: json['name'],
-      email: json['email'],
-      phone: json['phone'],
-      about: json['about'],
-      isDarkMode: json['isDarkMode']);
+  factory UserProfile.fromJson(Map<String, dynamic> json) => UserProfile(
+    userId: json["user_id"],
+    about: json["about"],
+    dob: json["dob"],
+    fName: json["f_name"],
+    lName: json["l_name"],
+    gender: json["gender"],
+    locationId: json["location_id"],
+    occupation: json["occupation"],
+    instagramUsername: json["instagram_username"],
+    isDarkMode: json["isDarkMode"],
+  );
 
-  Map<String, dynamic> toJson()=>{
-    'imagePath':imagePath,
-    'name':name,
-    'email':email,
-    'phone':phone,
-    'about':about,
-    'isDarkMode':isDarkMode
+  Map<String, dynamic> toJson() => {
+    "user_id": userId,
+    "about": about,
+    "dob": dob,
+    "f_name": fName,
+    "l_name": lName,
+    "gender": gender,
+    "location_id": locationId,
+    "occupation": occupation,
+    "instagram_username": instagramUsername,
+    "isDarkMode": isDarkMode,
   };
 }
