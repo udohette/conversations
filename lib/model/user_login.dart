@@ -11,10 +11,10 @@ String userLoginToJson(UserLogin data) => json.encode(data.toJson());
 class UserLogin {
 
   String email;
-  int mobileNum;
-  String token;
+  int? mobileNum;
+  String? token;
 
-  UserLogin({required this.email, required this.mobileNum, required this.token,}
+  UserLogin({required this.email, this.mobileNum, this.token,}
       );
 
 

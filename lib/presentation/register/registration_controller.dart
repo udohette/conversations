@@ -40,24 +40,40 @@ class RegistrationController extends GetxController{
 
       print(response.body.toString());
       if (response.statusCode == 200) {
+        print("Response Data ${response.body.toString()}");
+        print("Response Message: ${jsonDecode(response.body)['message']}");
+        print("Response and Identity Data 0 ${jsonDecode(response.body)['data'][0]['identity']['low'] as int}");
+        print("Response and User Id Data 1 ${jsonDecode(response.body)['data'][0]['properties']['user_id'] as int}");
+
+        String user_id  ="${jsonDecode(response.body)['data'][0]['properties']['user_id'] as int}";
+        String message = "${jsonDecode(response.body)['message']}";
+
+        SharedPreferences pref = await SharedPreferences.getInstance();
+        pref.setString('user_id', user_id);
+        pref.setString("message", message);
+
+        print("user_id user_id user_id $user_id");
+
+
         final json = jsonDecode(response.body);
-       /* if (json['data']['acc_status'] == 'inactive') {
+        /* if (json['data']['acc_status'] == 'inactive') {
           var v_code = json['data']['properties']['v_code'];*/
-          final SharedPreferences prefs = await _prefs;
-          //await prefs?.setString("v_code", v_code);
-          emailController.clear();
-          passwordController.clear();
-          phoneNumberController.clear();
-          tokenController.clear();
-          userNameController.clear();
-          Get.toNamed(Routes.otpScreen);
+        final SharedPreferences prefs = await _prefs;
+        //await prefs?.setString("v_code", v_code);
+        emailController.clear();
+        passwordController.clear();
+        phoneNumberController.clear();
+        tokenController.clear();
+        userNameController.clear();
+        Get.toNamed(Routes.otpScreen);
         /*}else{
           throw jsonDecode(response.body)['message'] ?? "Unknown Error Occurred";
         }*/
       }else{
-        throw jsonDecode(response.body)['message'] ?? "Unknown Error Occurred";
+        throw "Response Message: ${jsonDecode(response.body)['message']}";
+
       }
-      
+
     }catch(e){
       Get.back();
       showDialog(context: Get.context!, builder: (context){

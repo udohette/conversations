@@ -61,7 +61,7 @@ class LoginOrSignupScreen extends StatelessWidget {
                   SizedBox(height: AppSize.s20,),
                   SizedBox(height:AppSize.s60, width: double.infinity,
                     child: ElevatedButton(onPressed: (){
-                      Get.toNamed(Routes.loginRoute,);
+                      Get.toNamed(Routes.otpScreen,);
                     },
                         style: ButtonStyle(
                             backgroundColor: MaterialStatePropertyAll(AppColor.white),

@@ -23,7 +23,7 @@ class AppStrings{
   static const byEntering = "By entering your phone, you're agreeing to our ";
   static const termsOfService = "Terms of Service";
   static const privacy = "Privacy Policy.";
-  static const verification = "Verification";
+  static const verification = "Verification Code";
   static const otpCodeMessage = "Please enter your OTP Code here";
   static const never_a_better_time = "Never a better time to  get started";
   static const addYourPhone = "Add your phone number and we will send you  an OTP so we know you're real";
