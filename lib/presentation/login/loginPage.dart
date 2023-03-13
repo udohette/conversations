@@ -2,7 +2,6 @@ import 'package:conversations/presentation/homePage/homaPage.dart';
 import 'package:conversations/presentation/mainPage/mainPage.dart';
 import 'package:conversations/resources/app_color.dart';
 import 'package:conversations/resources/app_strings.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:intl_phone_field/country_picker_dialog.dart';
@@ -112,9 +111,9 @@ class _LoginPageState extends State<LoginPage> {
                         autocorrect: true,
                         style: getRegularTextStyle(fontSize: AppSize.s18, color: AppColor.primaryColor),
                         decoration: InputDecoration(
-                          prefixIcon: Icon(Icons.email, color: AppColor.primaryColorLight,),
+                          prefixIcon: const Icon(Icons.email, color: AppColor.primaryColorLight,),
                           labelStyle: getRegularTextStyle(fontSize: AppSize.s18, color: AppColor.primaryColor),
-                          suffixIcon: Icon(Icons.check_circle, color: Colors.green,size: AppSize.s30,),
+                          suffixIcon: const Icon(Icons.check_circle, color: Colors.green,size: AppSize.s30,),
                           enabled: true,
                           // label: Text("phone Number"),
                           hintText: "Email Address",
@@ -124,7 +123,7 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                           focusedBorder: OutlineInputBorder(
                               borderRadius:BorderRadius.circular(30) ,
-                              borderSide: BorderSide(color: AppColor.primaryColor)),
+                              borderSide: const BorderSide(color: AppColor.primaryColor)),
                         ),
 
                       ),
@@ -137,17 +136,17 @@ class _LoginPageState extends State<LoginPage> {
                                Navigator.of(context).push(MaterialPageRoute(builder: (context)=>const MainPage()));
                             },
                             style: ButtonStyle(
-                                backgroundColor: MaterialStatePropertyAll(AppColor.primaryColorLight),
-                                foregroundColor: MaterialStatePropertyAll(AppColor.white),
+                                backgroundColor: const MaterialStatePropertyAll(AppColor.primaryColorLight),
+                                foregroundColor: const MaterialStatePropertyAll(AppColor.white),
                                 shape: MaterialStatePropertyAll(RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppSize.s25)))
                             ),
-                            child: Padding(padding: EdgeInsets.all(AppPadding.p14), child: Text(AppStrings.login),)
+                            child: const Padding(padding: EdgeInsets.all(AppPadding.p14), child: Text(AppStrings.login),)
                         )
                         ,),
                     ],
                   ),
                 ),
-                SizedBox(height: 22,),
+                const SizedBox(height: 22,),
                 RichText(
                     text: TextSpan(children: [
                       TextSpan(

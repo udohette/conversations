@@ -15,7 +15,6 @@ class OTPController extends GetxController{
   String user_id = '';
   RxString controllerText = ''.obs;
 
-
   Future<void> otpVerification()async{
     try {
       var url = Uri.parse(APIEndPoints.baseUrl + APIEndPoints.userEndPoint.userActivation);
@@ -29,6 +28,7 @@ class OTPController extends GetxController{
       );
       print("body of  v_code ${body['v_code']}");
       print("Response from url ${response.body}");
+      print("Response from url ${response.statusCode}");
       print("Info From  Url $url");
       print("Response UserId from Registration $user_id}");
 
@@ -44,7 +44,8 @@ class OTPController extends GetxController{
         print("Response UserId from Registration $user_id}");
         print("Response Message two: ${jsonDecode(response.body)['message']}");
 
-        controllerText = jsonDecode(response.body)['message'];
+        controllerText.value = jsonDecode(response.body)['message'];
+        update();
         //Text("Success Message ${response.body['message']}")
        // print("Success Message ${response.body['message']}");
 
@@ -52,14 +53,15 @@ class OTPController extends GetxController{
         throw jsonDecode(response.body)['message'] ?? "Unknown Error Occurred";
       }
     }catch(e){
+      print(e.toString());
       //Get.back();
-      showDialog(context: Get.context!, builder: (context){
+      /*showDialog(context: Get.context!, builder: (context){
         return SimpleDialog(
           title: const Text("Error"),
           contentPadding: const EdgeInsets.all(AppPadding.p20,),
           children: [Text(e.toString())],
         );
-      });
+      });*/
 
     }
 

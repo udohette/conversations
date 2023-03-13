@@ -1,9 +1,7 @@
 import 'dart:convert';
-
 import 'package:conversations/resources/app_routes.dart';
 import 'package:conversations/resources/app_value_resource.dart';
 import 'package:conversations/utils/api_endpoints.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -29,10 +27,10 @@ class RegistrationController extends GetxController{
       var url = Uri.parse(APIEndPoints.baseUrl + APIEndPoints.userEndPoint.registerEmail);
       Map body = {
         'email': emailController.value.text.trim(),
-        'mobile_num': phoneNumberController.value.text,
+        'mobile_num': "",
         'password': "",
         'token': "",
-        'user_name': "",
+        'user_name': emailController.value.text.trim(),
       };
       print(body.toString());
       http.Response response = await http.post(url, body: jsonEncode(body), headers: {
