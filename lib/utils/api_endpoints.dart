@@ -6,7 +6,7 @@ class APIEndPoints{
 class _UserEndPoints{
   final String registerEmail = "conversation/user/registration";
   final String userActivation = "conversation/user/activation";
-  final String login = "conversation/user/login_otp";
+  final String login = "conversation/user/login";
   final String loginOTP = "conversation/user/login_otp";
   final String otpVerification = "conversation/user/login_otp";
 }

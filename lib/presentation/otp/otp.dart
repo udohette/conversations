@@ -65,9 +65,9 @@ class _OTPScreenState extends State<OTPScreen> {
   activeCounter() {
     _resendCodeTimer =
         Timer.periodic(const Duration(seconds: 1), (Timer timer) {
-          if (_timerDuration - timer.tick > 0)
+          if (_timerDuration - timer.tick > 0) {
             _timerStream.sink.add(_timerDuration - timer.tick);
-          else {
+          } else {
             _timerStream.sink.add(0);
             _resendCodeTimer.cancel();
           }
@@ -198,33 +198,33 @@ class _OTPScreenState extends State<OTPScreen> {
                                   _fieldFive.text.isNotEmpty &&
                                   _fieldSix.text.isNotEmpty) {
                                 controller.otpVerification();
+                                setState(() {
+                                  errorMsg.toString();
+                                  controller.user_id = user_id.toString();
+                                  controller.v_code.text = _fieldOne.text +
+                                      _fieldTwo.text +
+                                      _fieldThree.text +
+                                      _fieldFour.text +
+                                      _fieldFive.text +
+                                      _fieldSix.text;
+                                  print(
+                                      "Printing V_Code ${controller.v_code
+                                          .text}");
+                                  print(
+                                      "Printing V_Code ${controller.v_code
+                                          .text}");
+                                  print(
+                                      "Printing V_Code ${controller.v_code
+                                          .text}");
+                                  print(
+                                      "Printing user_id ${controller.user_id
+                                          .toString()}");
+                                });
                               } else {
                                 Get.snackbar(
                                     'Empty Box', 'Please fill the all fields');
                               }
 
-                              setState(() {
-                                errorMsg.toString();
-                                controller.user_id = user_id.toString();
-                                controller.v_code.text = _fieldOne.text +
-                                    _fieldTwo.text +
-                                    _fieldThree.text +
-                                    _fieldFour.text +
-                                    _fieldFive.text +
-                                    _fieldSix.text;
-                                print(
-                                    "Printing V_Code ${controller.v_code
-                                        .text}");
-                                print(
-                                    "Printing V_Code ${controller.v_code
-                                        .text}");
-                                print(
-                                    "Printing V_Code ${controller.v_code
-                                        .text}");
-                                print(
-                                    "Printing user_id ${controller.user_id
-                                        .toString()}");
-                              });
                               // controller.v_code.text = _otp.toString();
                             },
                             style: ButtonStyle(
@@ -277,6 +277,7 @@ class _OTPScreenState extends State<OTPScreen> {
                         //textColor: Theme.of(context).accentColor,
                           onPressed: snapshot.data == 0
                               ? () {
+                            controller.loginUser();
                             _timerStream.sink.add(30);
                             activeCounter();
                           }

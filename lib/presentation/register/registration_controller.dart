@@ -62,12 +62,15 @@ class RegistrationController extends GetxController{
           var v_code = json['data']['properties']['v_code'];*/
         final SharedPreferences prefs = await _prefs;
         //await prefs?.setString("v_code", v_code);
+        Get.toNamed(Routes.otpScreen, arguments: [
+          {"userId": user_id},
+          {"email": emailController.value.text}
+        ]);
         emailController.clear();
         passwordController.clear();
         phoneNumberController.clear();
         tokenController.clear();
         userNameController.clear();
-        Get.toNamed(Routes.otpScreen);
         /*}else{
           throw jsonDecode(response.body)['message'] ?? "Unknown Error Occurred";
         }*/
