@@ -21,6 +21,8 @@ class RegistrationController extends GetxController{
 
   final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
 
+  final RxString controllerText = ''.obs;
+
   Future<void> registerEmail()async{
     try {
       var headers = {'Content-Type': header};
@@ -43,6 +45,8 @@ class RegistrationController extends GetxController{
         print("Response Data ${response.body.toString()}");
         print("Response Message: ${jsonDecode(response.body)['message']}");
         print("Response and Identity Data 0 ${jsonDecode(response.body)['data'][0]['identity']['low'] as int}");
+
+
         print("Response and User Id Data 1 ${jsonDecode(response.body)['data'][0]['properties']['user_id'] as int}");
 
         String user_id  ="${jsonDecode(response.body)['data'][0]['properties']['user_id'] as int}";
@@ -70,12 +74,18 @@ class RegistrationController extends GetxController{
           throw jsonDecode(response.body)['message'] ?? "Unknown Error Occurred";
         }*/
       }else{
-        throw "Response Message: ${jsonDecode(response.body)['message']}";
-
+        //throw "Response Message: ${jsonDecode(response.body)['message']}";
+        showDialog(context: Get.context!, builder: (context){
+          return SimpleDialog(
+            title: const Text("Error"),
+            contentPadding: const EdgeInsets.all(AppPadding.p20,),
+            children: [Text(jsonDecode(response.body)['message'] ?? "DB Error")],
+          );
+        });
       }
 
     }catch(e){
-      Get.back();
+      //Get.back();
       showDialog(context: Get.context!, builder: (context){
         return SimpleDialog(
           title: const Text("Error"),

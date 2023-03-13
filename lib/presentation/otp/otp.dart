@@ -150,7 +150,7 @@ class _OTPScreenState extends State<OTPScreen> {
                         ),
                       ),
                       SizedBox(height: AppSize.s12,),
-                      Text(errorMsg, style: getBoldTextStyle(fontSize: AppSize.s14, color: AppColor.red),),
+                      Obx(() => Text(controller.controllerText.value.toString(), style: getBoldTextStyle(fontSize: AppSize.s14, color: AppColor.red),),)
                       //deisplay the entered otp
                     // Text(_otp ?? "Enter Text", style: TextStyle(fontSize: 30),),
                     ],
@@ -160,7 +160,7 @@ class _OTPScreenState extends State<OTPScreen> {
                 SizedBox(height: AppSize.s12,),
                     Text("Didn't your receive any code?", style: getBoldTextStyle(fontSize: AppSize.s14, color: Colors.black38),),
                     SizedBox(height: AppSize.s18,),
-                    Text("Resend new Code", style: getBoldTextStyle(fontSize: AppSize.s18, color: AppColor.primaryColor),)
+                    Text("Resend Code", style: getBoldTextStyle(fontSize: AppSize.s18, color: AppColor.primaryColor),)
 
               ],
             )

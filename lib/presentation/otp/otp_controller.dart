@@ -11,7 +11,9 @@ import '../../utils/api_endpoints.dart';
 
 class OTPController extends GetxController{
   TextEditingController v_code = TextEditingController();
+
   String user_id = '';
+  RxString controllerText = ''.obs;
 
 
   Future<void> otpVerification()async{
@@ -29,6 +31,7 @@ class OTPController extends GetxController{
       print("Response from url ${response.body}");
       print("Info From  Url $url");
       print("Response UserId from Registration $user_id}");
+
       print("Response Message one: ${jsonDecode(response.body)['message']}");
       String errorMsg = "${jsonDecode(response.body)['message']}";
 
@@ -40,6 +43,8 @@ class OTPController extends GetxController{
         print(response.body.toString());
         print("Response UserId from Registration $user_id}");
         print("Response Message two: ${jsonDecode(response.body)['message']}");
+
+        controllerText = jsonDecode(response.body)['message'];
         //Text("Success Message ${response.body['message']}")
        // print("Success Message ${response.body['message']}");
 
@@ -47,7 +52,7 @@ class OTPController extends GetxController{
         throw jsonDecode(response.body)['message'] ?? "Unknown Error Occurred";
       }
     }catch(e){
-      Get.back();
+      //Get.back();
       showDialog(context: Get.context!, builder: (context){
         return SimpleDialog(
           title: const Text("Error"),
