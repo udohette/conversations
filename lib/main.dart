@@ -1,3 +1,4 @@
+import 'package:conversations/presentation/clubs/clubs.dart';
 import 'package:conversations/presentation/login/loginPage.dart';
 import 'package:conversations/presentation/login_or_signup_screen/login_or_signup_screen.dart';
 import 'package:conversations/presentation/otp/otp.dart';
@@ -32,6 +33,7 @@ class MyApp extends StatelessWidget {
       locale: const Locale(AppStrings.ENGLISH, AppStrings.FRENCH),
       debugShowCheckedModeBanner: false,
       initialRoute: Routes.splashRoute,
+      //initialRoute: Routes.clubsRoute,
       title: AppStrings.appTitle,
       theme: appThemeData,
       darkTheme: darkThemeData,
@@ -42,9 +44,9 @@ class MyApp extends StatelessWidget {
         GetPage(transition: Transition.leftToRight, name: Routes.loginRoute, page: ()=>LoginPage()),
         GetPage(transition: Transition.rightToLeft, name: Routes.otpScreen, page: ()=>OTPScreen()),
         GetPage(transition: Transition.rightToLeft, name: Routes.instagramPage, page: ()=>InstagramView()),
+        GetPage(transition: Transition.rightToLeft, name: Routes.clubsRoute, page: ()=>Clubs()),
       ],
       unknownRoute: GetPage(name: Routes.unknownPage, page: ()=>const UnknownPage()),
       );
   }
 }
-

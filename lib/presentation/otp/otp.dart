@@ -33,13 +33,11 @@ class _OTPScreenState extends State<OTPScreen> {
   final TextEditingController _fieldFive = TextEditingController();
   final TextEditingController _fieldSix = TextEditingController();
 
-  // This is the entered code
-  // It will be displayed in a Text widget
-  String? _otp;
+
   String message = '';
   String user_id = '';
   String errorMsg = '';
-  bool _validate = false;
+
 
   @override
   void initState() {
@@ -211,12 +209,6 @@ class _OTPScreenState extends State<OTPScreen> {
                                       "Printing V_Code ${controller.v_code
                                           .text}");
                                   print(
-                                      "Printing V_Code ${controller.v_code
-                                          .text}");
-                                  print(
-                                      "Printing V_Code ${controller.v_code
-                                          .text}");
-                                  print(
                                       "Printing user_id ${controller.user_id
                                           .toString()}");
                                 });
@@ -244,11 +236,7 @@ class _OTPScreenState extends State<OTPScreen> {
                       const SizedBox(
                         height: AppSize.s12,
                       ),
-                      Obx(
-                            () =>
-                            Text(
-                              controller.controllerText.value.toString(),
-                              style: getBoldTextStyle(
+                      Obx(() => Text(controller.controllerText.value.toString(), style: getBoldTextStyle(
                                   fontSize: AppSize.s14, color: AppColor.red),
                             ),
                       ),
@@ -275,8 +263,7 @@ class _OTPScreenState extends State<OTPScreen> {
                       //width: 300,
                       child: TextButton(
                         //textColor: Theme.of(context).accentColor,
-                          onPressed: snapshot.data == 0
-                              ? () {
+                          onPressed: snapshot.data == 0 ? () {
                             controller.loginUser();
                             _timerStream.sink.add(30);
                             activeCounter();
