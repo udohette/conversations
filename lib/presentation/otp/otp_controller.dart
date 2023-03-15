@@ -14,8 +14,12 @@ class OTPController extends GetxController{
 
   @override
   void onInit() {
-    print('argumentData ${argumentData[0]['userId']}');
-    print('argumentData ${argumentData[1]['email']}');
+    try {
+      print('argumentData ${argumentData[0]['userId']}');
+      print('argumentData ${argumentData[1]['email']}');
+    } catch (e) {
+      print(e);
+    }
     super.onInit();
   }
   TextEditingController v_code = TextEditingController();
@@ -82,6 +86,7 @@ class OTPController extends GetxController{
         'email': argumentData[1]['email'],
         'mobile_num':"",
       };
+      print('argumentData email ${argumentData[1]['email']}');
       print(body.toString());
       http.Response response = await http.post(url, body: jsonEncode(body), headers: {
         'Content-type': 'application/json',
