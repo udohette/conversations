@@ -3,17 +3,13 @@ class AppStrings{
 
   static const String home = 'Home';
   static const String profile = 'Profile';
-  static const String onBoardingTitle3 = 'SEE THE BEST COURSE #3';
-  static const String onBoardingTitle4 = 'SEE THE BEST COURSE #4';
 
-  static const String onBoardingSubTitle1 = 'Tut App is Awesome Flutter Application using Clean Architecture #1';
-  static const String onBoardingSubTitle2 = 'Tut App is Awesome Flutter Application using Clean Architecture #2';
-  static const String onBoardingSubTitle3 = 'Tut App is Awesome Flutter Application using Clean Architecture #3';
-  static const String onBoardingSubTitle4 = 'Tut App is Awesome Flutter Application using Clean Architecture #4';
 
   static const appTitle = "Conversations";
   static const dot = ".";
 
+  static const clubMessageScreen1 = "What are 5 clubs you will like to  join";
+  static const clubMessageScreen2 = "Clubs appear on your profile and helps you find interesting conversations!";
   static const firstOTPMessage = "We will send you an ";
   static const secondOTPMessage = "One Time Password ";
   static const thirdOTPMessage = "on this mobile number";
@@ -27,6 +23,7 @@ class AppStrings{
   static const otpCodeMessage = "Please enter your OTP Code here";
   static const never_a_better_time = "Never a better time to  get started";
   static const addYourPhone = "Add your phone number and we will send you  an OTP so we know you're real";
+
 
 
 

@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:conversations/resources/app_routes.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -11,6 +12,7 @@ import '../../utils/api_endpoints.dart';
 
 class OTPController extends GetxController{
   dynamic argumentData = Get.arguments;
+
 
   @override
   void onInit() {
@@ -58,8 +60,8 @@ class OTPController extends GetxController{
 
         controllerText.value = jsonDecode(response.body)['message'];
         update();
-        //Text("Success Message ${response.body['message']}")
-       // print("Success Message ${response.body['message']}");
+        // if Successful , navigate user to club screen
+        Get.toNamed(Routes.clubsRoute);
 
       } else {
         throw jsonDecode(response.body)['message'] ?? "Unknown Error Occurred";
@@ -101,16 +103,7 @@ class OTPController extends GetxController{
         print("response body 200 of  v_code ${body['v_code']}");
         print("Response after 200 from url ${response.body}");
         print("Info From 200 response  Url $url");
-        final json = jsonDecode(response.body);
-        /* if (json['data']['acc_status'] == 'inactive') {
-          var v_code = json['data']['properties']['v_code'];*/
-        //await prefs?.setString("v_code", v_code);
-        //Get.toNamed(Routes.otpScreen);
-        /*}else{
-          throw jsonDecode(response.body)['message'] ?? "Unknown Error Occurred";
-        }*/
       }else{
-        //throw UserRegistrationResponse.fromJson(jsonDecode(response.body)[''message'']);
         throw jsonDecode(response.body)['message'] ?? "Unknown Error Occurred";
       }
 
