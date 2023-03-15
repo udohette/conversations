@@ -17,12 +17,15 @@ class RegistrationController extends GetxController{
   //late RxString completeNumber obs;
   var header  ='application/json';
 
+  RxBool isLoading = false.obs;
+
   final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
 
   final RxString controllerText = ''.obs;
   String message = '';
 
   Future<void> registerEmail()async {
+    isLoading.value = true;
     try {
       var url = Uri.parse(
           APIEndPoints.baseUrl + APIEndPoints.userEndPoint.registerEmail);
@@ -42,7 +45,9 @@ class RegistrationController extends GetxController{
       print(response.body.toString());
 
       try {
+        isLoading.value = false;
         if (response.statusCode == 200) {
+          isLoading.value = false;
           print("Response Data ${response.body.toString()}");
           print("Response Message: ${jsonDecode(response.body)['data']}");
           print("Response and Identity Data 0 ${jsonDecode(
@@ -72,6 +77,7 @@ class RegistrationController extends GetxController{
           tokenController.clear();
           userNameController.clear();
         } else {
+          isLoading.value = false;
           showDialog(context: Get.context!, builder: (context) {
             return SimpleDialog(
               title: const Text("Error"),
@@ -81,6 +87,7 @@ class RegistrationController extends GetxController{
           });
         }
       } catch (e) {
+        isLoading.value = false;
         //Get.back();
         showDialog(context: Get.context!, builder: (context) {
           return SimpleDialog(
@@ -91,7 +98,10 @@ class RegistrationController extends GetxController{
         });
       }
     } catch (e) {
-      print(e);
+      isLoading.value = false;
+      if (kDebugMode) {
+        print(e);
+      }
     }
   }
 }
