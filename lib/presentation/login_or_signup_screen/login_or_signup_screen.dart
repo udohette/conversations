@@ -36,7 +36,6 @@ class LoginOrSignupScreen extends StatelessWidget {
                               children: [
                                 Text(AppStrings.appTitle, style: getBoldTextStyle(fontSize: AppSize.s25, color: AppColor.balck),),
                                 Text(AppStrings.dot, style: getBoldTextStyle(fontSize: AppSize.s120, color: AppColor.primaryColorLight),)
-
                               ],)
                         )
 
@@ -51,21 +50,21 @@ class LoginOrSignupScreen extends StatelessWidget {
                     Get.toNamed(Routes.registerRoute);
                   },
                       style: ButtonStyle(
-                        backgroundColor: MaterialStatePropertyAll(AppColor.primaryColorLight),
-                        foregroundColor: MaterialStatePropertyAll(AppColor.white),
+                        backgroundColor: const MaterialStatePropertyAll(AppColor.primaryColorLight),
+                        foregroundColor: const MaterialStatePropertyAll(AppColor.white),
                         shape: MaterialStatePropertyAll(RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppSize.s25)))
                       ),
-                      child: Padding(padding: EdgeInsets.all(AppPadding.p14), child: Text(AppStrings.register),)
+                      child: const Padding(padding: EdgeInsets.all(AppPadding.p14), child: Text(AppStrings.register),)
                   )
                     ,),
-                  SizedBox(height: AppSize.s20,),
+                  const SizedBox(height: AppSize.s20,),
                   SizedBox(height:AppSize.s60, width: double.infinity,
                     child: ElevatedButton(onPressed: (){
                       Get.toNamed(Routes.loginRoute,);
                     },
                         style: ButtonStyle(
-                            backgroundColor: MaterialStatePropertyAll(AppColor.white),
-                            foregroundColor: MaterialStatePropertyAll(AppColor.primaryColorLight),
+                            backgroundColor: const MaterialStatePropertyAll(AppColor.white),
+                            foregroundColor: const MaterialStatePropertyAll(AppColor.primaryColorLight),
                             shape: MaterialStatePropertyAll(RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppSize.s25)))
                         ),
                         child: Padding(padding: EdgeInsets.all(AppPadding.p14), child: Text("Login"),)
