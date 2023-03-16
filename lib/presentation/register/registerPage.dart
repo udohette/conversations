@@ -189,14 +189,19 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       const SizedBox(
                         height: 22,
                       ),
-                      Obx(() => controller.isLoading.value ? const SizedBox(height: AppSize.s40, width: AppSize.s40,child: CircularProgressIndicator()) : SizedBox(
+                      Obx(() => controller.isLoading.value ? const SizedBox(height: AppSize.s40, width: AppSize.s40,child: CircularProgressIndicator(color: AppColor.primaryColorLight,)) : SizedBox(
                           height: AppSize.s60,
                           width: double.infinity,
                           child: ElevatedButton(
                                   onPressed: () {
-                                    //controller.phoneNumberController.text = completeNumber;
-                                    controller.registerEmail();
-                                    //Get.toNamed(Routes.otpScreen);
+                                    if(controller.emailController.text.isNotEmpty){
+                                      //controller.phoneNumberController.text = completeNumber;
+                                      controller.registerEmail();
+                                      //Get.toNamed(Routes.otpScreen);
+                                    }else{
+                                      Get.snackbar('Empty Field', "please enter email address",backgroundColor: AppColor.primaryColorLight, colorText: AppColor.white,);
+                                    }
+
                                   },
                                   style: ButtonStyle(
                                       backgroundColor: const MaterialStatePropertyAll(

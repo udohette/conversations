@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:conversations/presentation/otp/otp_controller.dart';
+import 'package:conversations/resources/app_routes.dart';
 import 'package:conversations/widgets/otp_input.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -182,9 +183,9 @@ class _OTPScreenState extends State<OTPScreen> {
                           OTPInput(controller: _fieldSix, autoFocus: false),
                         ],
                       ),
-                      SizedBox(
-                        height: 22,
-                      ),
+                      SizedBox(height: 22,),
+                      Obx(() => controller.isLoading.value ? SizedBox(height: AppSize.s40, width: AppSize.s40, child: CircularProgressIndicator(color: AppColor.primaryColorLight,),
+                      ):
                       SizedBox(
                         width: double.infinity,
                         child: ElevatedButton(
@@ -199,11 +200,7 @@ class _OTPScreenState extends State<OTPScreen> {
                                 setState(() {
                                   errorMsg.toString();
                                   controller.user_id = user_id.toString();
-                                  controller.v_code.text = _fieldOne.text +
-                                      _fieldTwo.text +
-                                      _fieldThree.text +
-                                      _fieldFour.text +
-                                      _fieldFive.text +
+                                  controller.v_code.text = _fieldOne.text + _fieldTwo.text + _fieldThree.text + _fieldFour.text + _fieldFive.text +
                                       _fieldSix.text;
                                   print(
                                       "Printing V_Code ${controller.v_code
@@ -213,8 +210,7 @@ class _OTPScreenState extends State<OTPScreen> {
                                           .toString()}");
                                 });
                               } else {
-                                Get.snackbar(
-                                    'Empty Box', 'Please fill the all fields');
+                                Get.snackbar('Empty Field', "please enter all Fields",backgroundColor: AppColor.primaryColorLight, colorText: AppColor.white,);
                               }
 
                               // controller.v_code.text = _otp.toString();
@@ -232,6 +228,7 @@ class _OTPScreenState extends State<OTPScreen> {
                               padding: EdgeInsets.all(AppPadding.p14),
                               child: Text(AppStrings.verify),
                             )),
+                      )
                       ),
                       const SizedBox(
                         height: AppSize.s12,

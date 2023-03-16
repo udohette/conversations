@@ -49,16 +49,15 @@ class RegistrationController extends GetxController{
         if (response.statusCode == 200) {
           isLoading.value = false;
           print("Response Data ${response.body.toString()}");
-          print("Response Message: ${jsonDecode(response.body)['data']}");
+          print("Response Message: ${jsonDecode(response.body)['message']}");
           print("Response and Identity Data 0 ${jsonDecode(
               response.body)['data'][0]['identity']['low'] as int}");
 
           print("Response and User Id Data 1 ${jsonDecode(
               response.body)['data'][0]['properties']['user_id'] as int}");
 
-          String user_id = "${jsonDecode(
-              response.body)['data'][0]['properties']['user_id'] as int}";
-          message = "${jsonDecode(response.body)['data']}";
+          String user_id = "${jsonDecode(response.body)['data'][0]['properties']['user_id'] as int}";
+          message = "${jsonDecode(response.body)['message']}";
 
           SharedPreferences pref = await SharedPreferences.getInstance();
           pref.setString('user_id', user_id);
@@ -82,7 +81,10 @@ class RegistrationController extends GetxController{
             return SimpleDialog(
               title: const Text("Error"),
               contentPadding: const EdgeInsets.all(AppPadding.p20,),
-              children: [Text(jsonDecode(response.body)['data'] ?? "DB Error")],
+              children: [
+               // Text(jsonDecode(response.body)['message'] ?? "DB Error"),
+                Text(jsonDecode(response.body)['data'] ?? "DB Error")
+              ],
             );
           });
         }
@@ -93,7 +95,10 @@ class RegistrationController extends GetxController{
           return SimpleDialog(
             title: const Text("Oops!"),
             contentPadding: const EdgeInsets.all(AppPadding.p20,),
-            children: [Text(jsonDecode(response.body)['data'] ?? "DB Error")],
+            children: [
+              //Text(jsonDecode(response.body)['message'] ?? "DB Error"),
+              Text(jsonDecode(response.body)['data'] ?? "DB Error")
+            ],
           );
         });
       }

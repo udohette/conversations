@@ -7,16 +7,21 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../resources/app_color.dart';
 import '../../resources/app_value_resource.dart';
 import '../../utils/api_endpoints.dart';
 
 class OTPController extends GetxController{
   dynamic argumentData = Get.arguments;
+  RxBool isLoading = false.obs;
+   String  user_id = '';
+
 
 
   @override
   void onInit() {
     try {
+      user_id = argumentData[0]['userId'].toString();
       print('argumentData ${argumentData[0]['userId']}');
       print('argumentData ${argumentData[1]['email']}');
     } catch (e) {
@@ -26,14 +31,16 @@ class OTPController extends GetxController{
   }
   TextEditingController v_code = TextEditingController();
 
-  String user_id = '';
+ // String user_id = argumentData[0]['userId'].toString();
   RxString controllerText = ''.obs;
 
+
   Future<void> otpVerification()async{
+    isLoading.value = true;
     try {
       var url = Uri.parse(APIEndPoints.baseUrl + APIEndPoints.userEndPoint.userActivation);
       Map body = {
-        'user_id': user_id.toString(),
+        'user_id': argumentData[0]['userId'].toString(),
         'v_code': v_code.value.text
       };
       http.Response response = await http.post(url, body: jsonEncode(body), headers: {
@@ -44,7 +51,7 @@ class OTPController extends GetxController{
       print("Response from url ${response.body}");
       print("Response from url ${response.statusCode}");
       print("Info From  Url $url");
-      print("Response UserId from Registration $user_id}");
+      print("Response UserId from Registration ${argumentData[0]['userId'].toString()}");
 
       print("Response Message one: ${jsonDecode(response.body)['message']}");
       String errorMsg = "${jsonDecode(response.body)['message']}";
@@ -53,20 +60,27 @@ class OTPController extends GetxController{
       preferences.setString('errorMsg', errorMsg);
 
       if (response.statusCode == 200) {
-        v_code.clear();
-        print(response.body.toString());
-        print("Response UserId from Registration $user_id}");
-        print("Response Message two: ${jsonDecode(response.body)['message']}");
+        isLoading.value = false;
+        if(jsonDecode(response.body)['status']== true){
+          v_code.clear();
+          print(response.body.toString());
+          print("Response UserId from Registration ${argumentData[0]['userId'].toString()}");
+          print("Response Message two: ${jsonDecode(response.body)['message']}");
 
-        controllerText.value = jsonDecode(response.body)['message'];
-        update();
-        // if Successful , navigate user to club screen
-        Get.toNamed(Routes.clubsRoute);
-
+          controllerText.value = jsonDecode(response.body)['message'];
+          update();
+          // if Successful , navigate user to club screen
+          Get.toNamed(Routes.clubsRoute);
+        }else{
+          isLoading.value = false;
+          Get.snackbar('Verification Code Error', jsonDecode(response.body)['message'],backgroundColor: AppColor.primaryColorLight, colorText: AppColor.white,);
+        }
       } else {
+        isLoading.value = false;
         throw jsonDecode(response.body)['message'] ?? "Unknown Error Occurred";
       }
     }catch(e){
+      isLoading.value = false;
       print(e.toString());
       //Get.back();
       /*showDialog(context: Get.context!, builder: (context){
@@ -82,6 +96,7 @@ class OTPController extends GetxController{
   }
 
   Future<void> loginUser()async{
+    isLoading.value = true;
     try {
       var url = Uri.parse(APIEndPoints.baseUrl + APIEndPoints.userEndPoint.login);
       Map body = {
@@ -100,15 +115,21 @@ class OTPController extends GetxController{
       print(response.body.toString());
 
       if (response.statusCode == 200) {
+        isLoading.value = false;
         print("response body 200 of  v_code ${body['v_code']}");
         print("Response after 200 from url ${response.body}");
         print("Info From 200 response  Url $url");
+        update();
+        // if Successful , navigate user to club screen
+        //Get.toNamed(Routes.mainRoute);
       }else{
+        isLoading.value = false;
         throw jsonDecode(response.body)['message'] ?? "Unknown Error Occurred";
       }
 
     }catch(e){
-      Get.back();
+      isLoading.value = false;
+      //Get.back();
       showDialog(context: Get.context!, builder: (context){
         return SimpleDialog(
           title: const Text("Error"),

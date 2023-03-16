@@ -1,9 +1,11 @@
 import 'package:conversations/presentation/homePage/homaPage.dart';
+import 'package:conversations/presentation/login/login_controller.dart';
 import 'package:conversations/presentation/mainPage/mainPage.dart';
 import 'package:conversations/resources/app_color.dart';
 import 'package:conversations/resources/app_strings.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:intl_phone_field/country_picker_dialog.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -19,6 +21,14 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  LoginController controller = Get.put(LoginController());
+
+
+  @override
+  void dispose() {
+    controller.emailController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -107,6 +117,7 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                       SizedBox(height: 22,),
                       TextField(
+                        controller: controller.emailController,
                         keyboardType: TextInputType.emailAddress,
                         autocorrect: true,
                         style: getRegularTextStyle(fontSize: AppSize.s18, color: AppColor.primaryColor),
@@ -128,12 +139,19 @@ class _LoginPageState extends State<LoginPage> {
 
                       ),
                       SizedBox(height: 22,),
-                      SizedBox(
+
+                      Obx(() => controller.isLoading.value ? SizedBox(height: AppSize.s40, width: AppSize.s40, child: CircularProgressIndicator(color: AppColor.primaryColorLight,),
+                      ): SizedBox(
                         height: AppSize.s60,
                         width: double.infinity,
                         child: ElevatedButton(
                             onPressed: (){
-                               Navigator.of(context).push(MaterialPageRoute(builder: (context)=>const MainPage()));
+                              if(controller.emailController.text.isNotEmpty){
+                                controller.loginUser();
+                              }else{
+                                Get.snackbar('Empty Field', "please enter email address",backgroundColor: AppColor.primaryColorLight, colorText: AppColor.white,);
+                              }
+
                             },
                             style: ButtonStyle(
                                 backgroundColor: const MaterialStatePropertyAll(AppColor.primaryColorLight),
@@ -143,6 +161,7 @@ class _LoginPageState extends State<LoginPage> {
                             child: const Padding(padding: EdgeInsets.all(AppPadding.p14), child: Text(AppStrings.login),)
                         )
                         ,),
+                      )
                     ],
                   ),
                 ),
