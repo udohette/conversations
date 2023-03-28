@@ -40,7 +40,7 @@ class OTPController extends GetxController{
     try {
       var url = Uri.parse(APIEndPoints.baseUrl + APIEndPoints.userEndPoint.userActivation);
       Map body = {
-        'user_id': argumentData[0]['userId'].toString(),
+        'user_id': argumentData[0]['userId'],
         'v_code': v_code.value.text
       };
       http.Response response = await http.post(url, body: jsonEncode(body), headers: {
@@ -64,7 +64,7 @@ class OTPController extends GetxController{
         if(jsonDecode(response.body)['status']== true){
           v_code.clear();
           print(response.body.toString());
-          print("Response UserId from Registration ${argumentData[0]['userId'].toString()}");
+          print("Response UserId from Registration ${argumentData[0]['userId']}");
           print("Response Message two: ${jsonDecode(response.body)['message']}");
 
           controllerText.value = jsonDecode(response.body)['message'];
@@ -72,6 +72,7 @@ class OTPController extends GetxController{
           // if Successful , navigate user to club screen
           Get.toNamed(Routes.clubsRoute);
         }else{
+          controllerText.value = jsonDecode(response.body)['message'];
           isLoading.value = false;
           Get.snackbar('Verification Code Error', jsonDecode(response.body)['message'],backgroundColor: AppColor.primaryColorLight, colorText: AppColor.white,);
         }

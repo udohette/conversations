@@ -40,11 +40,11 @@ class LoginController extends GetxController{
             print("response body 200 of  v_code ${body['v_code']}");
             print("Response after 200 from url ${response.body}");
             print("Info From 200 response  Url $url");
-            String user_id = "${jsonDecode(response.body)['data'][0]['identity']['low'] as int}";
+            String user_id = "${jsonDecode(response.body)['data']['identity']['low'] as int}";
             print("user_id user_id $user_id");
             print("response.statusCode ${response.statusCode}");
 
-            Get.toNamed(Routes.otpScreen, arguments: [
+            Get.toNamed(Routes.otpScreen, arguments:[
               {"userId": user_id},
               {"email": emailController.value.text}
             ]);
@@ -60,7 +60,6 @@ class LoginController extends GetxController{
                 children: [Text(jsonDecode(response.body)['message'] ?? "Unknown Error Occurred")],
               );
             });
-            //throw UserRegistrationResponse.fromJson(jsonDecode(response.body)[''message'']);
             throw jsonDecode(response.body)['message'] ?? "Unknown Error Occurred";
           }
 
@@ -78,7 +77,6 @@ class LoginController extends GetxController{
 
       }catch(e){
         isLoading.value = false;
-        //Get.back();
        e.printError();
       }
     }

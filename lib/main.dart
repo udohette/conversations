@@ -2,6 +2,7 @@ import 'package:conversations/presentation/clubs/clubs.dart';
 import 'package:conversations/presentation/login/loginPage.dart';
 import 'package:conversations/presentation/login_or_signup_screen/login_or_signup_screen.dart';
 import 'package:conversations/presentation/otp/otp.dart';
+import 'package:conversations/presentation/profile/profilePage.dart';
 import 'package:conversations/presentation/register/registerPage.dart';
 import 'package:conversations/presentation/splash/splash_screen.dart';
 import 'package:conversations/presentation/unknownPage.dart';
@@ -24,7 +25,6 @@ void main()async {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
@@ -37,8 +37,11 @@ class MyApp extends StatelessWidget {
       title: AppStrings.appTitle,
       theme: appThemeData,
       darkTheme: darkThemeData,
+
+
+
       getPages: [
-        GetPage(name: Routes.splashRoute, page: ()=>SplashScreen()),
+        GetPage(name: Routes.splashRoute, page: ()=>ProfilePage()),
         GetPage(name: Routes.loginOrRegister, page: ()=>LoginOrSignupScreen()),
         GetPage(transition: Transition.leftToRight, name: Routes.registerRoute, page: ()=>RegisterScreen()),
         GetPage(transition: Transition.leftToRight, name: Routes.loginRoute, page: ()=>LoginPage()),
@@ -46,6 +49,9 @@ class MyApp extends StatelessWidget {
         GetPage(transition: Transition.rightToLeft, name: Routes.instagramPage, page: ()=>InstagramView()),
         GetPage(transition: Transition.rightToLeft, name: Routes.clubsRoute, page: ()=>Clubs()),
       ],
+
+
+
       unknownRoute: GetPage(name: Routes.unknownPage, page: ()=>const UnknownPage()),
       );
   }

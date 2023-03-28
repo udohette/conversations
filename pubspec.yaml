@@ -54,6 +54,7 @@ dependencies:
 
   #store Images
   path_provider: ^2.0.13
+  location: ^4.4.0
 
 
 dev_dependencies:

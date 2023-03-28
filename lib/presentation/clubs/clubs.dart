@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:conversations/resources/app_color.dart';
 import 'package:conversations/resources/app_strings.dart';
 import 'package:conversations/resources/app_styles.dart';
@@ -5,6 +7,8 @@ import 'package:conversations/resources/app_value_resource.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
+import 'package:location/location.dart';
 
 class Clubs extends StatefulWidget {
   const Clubs({Key? key}) : super(key: key);
@@ -14,6 +18,47 @@ class Clubs extends StatefulWidget {
 }
 
 class _ClubsState extends State<Clubs> {
+  Location location = Location();
+  late bool _serviceEnabled;
+  late PermissionStatus _permissionGranted;
+  late LocationData _locationData;
+  late double? getLatitude;
+  late double? getLongitude;
+
+  @override
+  void initState() {
+_getUserLocation();
+    super.initState();
+  }
+
+  Future<void> _getUserLocation() async {
+    _serviceEnabled = await location.serviceEnabled();
+    if (!_serviceEnabled) {
+      _serviceEnabled = await location.requestService();
+      if (!_serviceEnabled) {
+        return;
+      }
+    }
+    _permissionGranted = await location.hasPermission();
+    if (_permissionGranted == PermissionStatus.denied) {
+      _permissionGranted = await location.requestPermission();
+      if (_permissionGranted != PermissionStatus.granted) {
+        return;
+      }
+    }
+    _locationData = await location.getLocation();
+    setState(() {
+      getLatitude = _locationData.latitude;
+      getLongitude = _locationData.longitude;
+      print("getLatitude $getLatitude");
+      print("getLongitude $getLongitude");
+    });
+  }
+
+
+
+
+
   List<TextButton> clubButtons = [
     TextButton.icon(onPressed: (){}, icon: Icon(Icons.church, color: Colors.deepOrange,), label: Text("Christianity", style: getSemiBoldTextStyle(fontSize: AppSize.s16, color: AppColor.white),)),
     TextButton.icon(onPressed: (){}, icon: Icon(Icons.gamepad_rounded), label: Text("Gaming",style: getSemiBoldTextStyle(fontSize: AppSize.s16, color: AppColor.white),)),

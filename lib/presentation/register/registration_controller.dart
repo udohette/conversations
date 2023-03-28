@@ -27,8 +27,7 @@ class RegistrationController extends GetxController{
   Future<void> registerEmail()async {
     isLoading.value = true;
     try {
-      var url = Uri.parse(
-          APIEndPoints.baseUrl + APIEndPoints.userEndPoint.registerEmail);
+      var url = Uri.parse(APIEndPoints.baseUrl + APIEndPoints.userEndPoint.registerEmail);
       Map body = {
         'email': emailController.value.text.trim(),
         'mobile_num': "",

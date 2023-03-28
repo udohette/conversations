@@ -9,5 +9,6 @@ class _UserEndPoints{
   final String login = "conversation/user/login";
   final String loginOTP = "conversation/user/login_otp";
   final String otpVerification = "conversation/user/login_otp";
+  final String fetchAllLocation = "conversation/fetch_locations";
 }
 
